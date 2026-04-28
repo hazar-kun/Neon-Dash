@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang=\"tr\">
+<html lang="tr">
 <head>
-<meta charset=\"UTF-8\" />
-<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Neon Dash</title>
 <style>
   :root {
@@ -234,48 +234,48 @@
 </style>
 </head>
 <body>
-<div id=\"wrap\">
-  <canvas id=\"game\"></canvas>
+<div id="wrap">
+  <canvas id="game"></canvas>
 
-  <div id=\"score\" class=\"hud\" data-testid=\"score-display\">
-    <span class=\"label\">SCORE</span>
-    <span class=\"val\" id=\"scoreVal\">0</span>
+  <div id="score" class="hud" data-testid="score-display">
+    <span class="label">SCORE</span>
+    <span class="val" id="scoreVal">0</span>
   </div>
 
-  <button id=\"settingsBtn\" class=\"hud\" data-testid=\"settings-btn\" aria-label=\"Settings\">
-    <span class=\"gear\"></span>
+  <button id="settingsBtn" class="hud" data-testid="settings-btn" aria-label="Settings">
+    <span class="gear"></span>
   </button>
 
-  <div id=\"settingsPanel\" data-testid=\"settings-panel\">
+  <div id="settingsPanel" data-testid="settings-panel">
     <h3>SETTINGS</h3>
-    <div class=\"setting\">
-      <label>BRIGHTNESS <span id=\"brightVal\">100%</span></label>
-      <input type=\"range\" id=\"brightness\" min=\"30\" max=\"150\" value=\"100\" data-testid=\"brightness-slider\"/>
+    <div class="setting">
+      <label>BRIGHTNESS <span id="brightVal">100%</span></label>
+      <input type="range" id="brightness" min="30" max="150" value="100" data-testid="brightness-slider"/>
     </div>
-    <div class=\"setting\">
-      <label>VOLUME <span id=\"volVal\">60%</span></label>
-      <input type=\"range\" id=\"volume\" min=\"0\" max=\"100\" value=\"60\" data-testid=\"volume-slider\"/>
+    <div class="setting">
+      <label>VOLUME <span id="volVal">60%</span></label>
+      <input type="range" id="volume" min="0" max="100" value="60" data-testid="volume-slider"/>
     </div>
-    <div class=\"setting\">
+    <div class="setting">
       <label>DIFFICULTY</label>
-      <div class=\"diff-buttons\">
-        <button data-diff=\"easy\" data-testid=\"diff-easy\">EASY</button>
-        <button data-diff=\"normal\" data-testid=\"diff-normal\" class=\"active\">NORMAL</button>
-        <button data-diff=\"hard\" data-testid=\"diff-hard\">HARD</button>
+      <div class="diff-buttons">
+        <button data-diff="easy" data-testid="diff-easy">EASY</button>
+        <button data-diff="normal" data-testid="diff-normal" class="active">NORMAL</button>
+        <button data-diff="hard" data-testid="diff-hard">HARD</button>
       </div>
     </div>
   </div>
 
-  <div id=\"startScreen\" class=\"overlay\" data-testid=\"start-screen\">
+  <div id="startScreen" class="overlay" data-testid="start-screen">
     <h1>NEON DASH</h1>
     <p>SPACE / TAP TO JUMP</p>
-    <button id=\"startBtn\" data-testid=\"start-btn\">START</button>
+    <button id="startBtn" data-testid="start-btn">START</button>
   </div>
 
-  <div id=\"gameOverScreen\" class=\"overlay hidden\" data-testid=\"gameover-screen\">
+  <div id="gameOverScreen" class="overlay hidden" data-testid="gameover-screen">
     <h1>GAME OVER</h1>
-    <p>SCORE: <span id=\"finalScore\">0</span> &nbsp;&nbsp; BEST: <span id=\"bestScore\">0</span></p>
-    <button id=\"restartBtn\" data-testid=\"restart-btn\">RETRY</button>
+    <p>SCORE: <span id="finalScore">0</span> &nbsp; BEST: <span id="bestScore">0</span></p>
+    <button id="restartBtn" data-testid="restart-btn">RETRY</button>
   </div>
 </div>
 
@@ -347,9 +347,9 @@
 
   // ----- Game state -----
   const DIFFICULTIES = {
-    easy:   { speed: 5.5,  gravity: 0.75, jump: 14, gap: [320, 460] },
+    easy:   { speed: 5.5,  gravity: 0.75, jump: 14,   gap: [320, 460] },
     normal: { speed: 7.5,  gravity: 0.95, jump: 15.5, gap: [260, 400] },
-    hard:   { speed: 9.5,  gravity: 1.15, jump: 17, gap: [220, 340] },
+    hard:   { speed: 9.5,  gravity: 1.15, jump: 17,   gap: [220, 340] },
   };
   let difficulty = 'normal';
   let cfg = DIFFICULTIES[difficulty];
@@ -367,7 +367,7 @@
   let gameOver = false;
   let spawnDist = 0;
   let nextSpawn = 300;
-  let speedBoost = 1; // grows over time
+  let speedBoost = 1;
 
   function initStars() {
     starField = [];
@@ -420,7 +420,7 @@
     document.getElementById('gameOverScreen').classList.remove('hidden');
     beep(120, 0.18, 'sawtooth');
     setTimeout(() => beep(80, 0.25, 'sawtooth'), 90);
-    burst(player.x + player.size/2, player.y + player.size/2, currentColor, 30);
+    burst(player.x + player.size / 2, player.y + player.size / 2, currentColor, 30);
   }
 
   function jump() {
@@ -471,7 +471,6 @@
     ctx.lineWidth = 2.5;
     ctx.strokeStyle = color;
     ctx.strokeRect(x, y, w, h);
-    // inner stroke
     ctx.shadowBlur = glow * 0.5;
     ctx.lineWidth = 1;
     ctx.strokeRect(x + 4, y + 4, w - 8, h - 8);
@@ -488,7 +487,6 @@
   }
 
   function drawGround() {
-    // glowing line
     ctx.save();
     ctx.shadowColor = currentColor;
     ctx.shadowBlur = 20;
@@ -499,9 +497,8 @@
     ctx.lineTo(W, GROUND_Y);
     ctx.stroke();
 
-    // grid lines moving
     ctx.shadowBlur = 0;
-    ctx.strokeStyle = `${currentColor}33`;
+    ctx.strokeStyle = currentColor + '33';
     ctx.lineWidth = 1;
     const gridSize = 40;
     const offset = (gridScroll % gridSize);
@@ -526,8 +523,7 @@
     const cy = player.y + player.size / 2;
     ctx.translate(cx, cy);
     ctx.rotate(player.rot);
-    neonRect(-player.size/2, -player.size/2, player.size, player.size, currentColor, 24);
-    // inner dot
+    neonRect(-player.size / 2, -player.size / 2, player.size, player.size, currentColor, 24);
     ctx.shadowColor = currentColor;
     ctx.shadowBlur = 14;
     ctx.fillStyle = currentColor;
@@ -560,7 +556,6 @@
     const speed = cfg.speed * speedBoost;
     gridScroll += speed;
 
-    // stars
     for (const s of starField) {
       s.x -= s.v * speed * 0.5;
       if (s.x < 0) { s.x = W; s.y = Math.random() * GROUND_Y; }
@@ -568,7 +563,6 @@
 
     if (!running) return;
 
-    // player physics
     player.vy += cfg.gravity;
     player.y += player.vy;
     if (!player.onGround) player.rot += 0.18;
@@ -576,11 +570,9 @@
       player.y = GROUND_Y - player.size;
       player.vy = 0;
       player.onGround = true;
-      // snap rotation to nearest quarter
       player.rot = Math.round(player.rot / (Math.PI / 2)) * (Math.PI / 2);
     }
 
-    // obstacles
     spawnDist += speed;
     if (spawnDist > nextSpawn) {
       spawnObstacle();
@@ -591,23 +583,19 @@
 
     for (const o of obstacles) {
       o.x -= speed;
-      // pass detection
       if (!o.passed && o.x + o.w < player.x) {
         o.passed = true;
         score++;
         document.getElementById('scoreVal').textContent = score;
-        // change color on each obstacle passed
         let next;
         do {
           next = NEON_COLORS[Math.floor(Math.random() * NEON_COLORS.length)];
         } while (next === currentColor);
         setNeon(next);
         beep(880 + Math.random() * 220, 0.06, 'triangle');
-        burst(player.x + player.size, player.y + player.size/2, next, 10);
-        // gradual difficulty ramp
+        burst(player.x + player.size, player.y + player.size / 2, next, 10);
         speedBoost = Math.min(1.6, 1 + score * 0.02);
       }
-      // collision (AABB)
       if (
         player.x + player.size - 6 > o.x &&
         player.x + 6 < o.x + o.w &&
@@ -619,7 +607,6 @@
     }
     obstacles = obstacles.filter(o => o.x + o.w > -50);
 
-    // particles
     for (const p of particles) {
       p.x += p.vx;
       p.y += p.vy;
@@ -631,20 +618,20 @@
 
   function render() {
     ctx.clearRect(0, 0, W, H);
-    // bg
     ctx.fillStyle = '#000';
     ctx.fillRect(0, 0, W, H);
     drawStars();
     drawGround();
     drawObstacles();
-    drawPlayer();
     drawParticles();
+    drawPlayer();
   }
 
-  let last = performance.now();
-  function loop(now) {
-    const dt = Math.min(33, now - last);
-    last = now;
+  // ----- Game loop -----
+  let lastTime = 0;
+  function loop(ts) {
+    const dt = Math.min((ts - lastTime) / 16.67, 3);
+    lastTime = ts;
     update(dt);
     render();
     requestAnimationFrame(loop);
@@ -652,55 +639,45 @@
   requestAnimationFrame(loop);
 
   // ----- Input -----
-  window.addEventListener('keydown', (e) => {
-    if (e.code === 'Space' || e.code === 'ArrowUp') {
+  document.addEventListener('keydown', e => {
+    if (e.code === 'Space' || e.key === ' ') {
       e.preventDefault();
-      if (!running && !gameOver) startGame();
-      else if (gameOver) startGame();
-      else jump();
+      if (!running && !gameOver) return;
+      jump();
     }
   });
-  canvas.addEventListener('pointerdown', () => {
-    if (!running && !gameOver) startGame();
-    else if (gameOver) startGame();
-    else jump();
+
+  canvas.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    if (running) jump();
   });
 
-  document.getElementById('startBtn').addEventListener('click', (e) => {
-    e.stopPropagation();
-    startGame();
-  });
-  document.getElementById('restartBtn').addEventListener('click', (e) => {
-    e.stopPropagation();
-    startGame();
-  });
+  document.getElementById('startBtn').addEventListener('click', startGame);
+  document.getElementById('restartBtn').addEventListener('click', startGame);
 
   // ----- Settings -----
-  const panel = document.getElementById('settingsPanel');
-  document.getElementById('settingsBtn').addEventListener('click', (e) => {
-    e.stopPropagation();
-    panel.classList.toggle('open');
+  document.getElementById('settingsBtn').addEventListener('click', () => {
+    document.getElementById('settingsPanel').classList.toggle('open');
   });
-  document.addEventListener('click', (e) => {
-    if (!panel.contains(e.target) && e.target.id !== 'settingsBtn' && !e.target.closest('#settingsBtn')) {
+
+  document.addEventListener('click', e => {
+    const panel = document.getElementById('settingsPanel');
+    const btn = document.getElementById('settingsBtn');
+    if (!panel.contains(e.target) && !btn.contains(e.target)) {
       panel.classList.remove('open');
     }
   });
 
-  const brightInput = document.getElementById('brightness');
-  brightInput.addEventListener('input', () => {
-    const v = brightInput.value;
+  document.getElementById('brightness').addEventListener('input', function() {
+    const v = this.value;
     document.getElementById('brightVal').textContent = v + '%';
-    root.style.setProperty('--brightness', (v / 100).toString());
-    localStorage.setItem('neonDashBright', v);
+    root.style.setProperty('--brightness', v / 100);
   });
 
-  const volInput = document.getElementById('volume');
-  volInput.addEventListener('input', () => {
-    const v = volInput.value;
+  document.getElementById('volume').addEventListener('input', function() {
+    const v = this.value;
     document.getElementById('volVal').textContent = v + '%';
     setVolume(v / 100);
-    localStorage.setItem('neonDashVol', v);
   });
 
   document.querySelectorAll('.diff-buttons button').forEach(btn => {
@@ -709,17 +686,10 @@
       btn.classList.add('active');
       difficulty = btn.dataset.diff;
       cfg = DIFFICULTIES[difficulty];
-      localStorage.setItem('neonDashDiff', difficulty);
     });
   });
 
-  // restore saved settings
-  (function restore() {
-    const b = localStorage.getItem('neonDashBright');
-    if (b) { brightInput.value = b; brightInput.dispatchEvent(new Event('input')); }
-    const v = localStorage.getItem('neonDashVol');
-    if (v) { volInput.value = v; }
-    const d = localStorage.getItem('neonDashDiff');
-    if (d && DIFFICULTIES[d]) {
-      difficulty = d;
-      c
+})();
+</script>
+</body>
+  </html>
